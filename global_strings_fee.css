@@ -1,0 +1,14 @@
+a#fee_strings { 
+	color: red;
+}
+
+div.stringFeeContent{
+	border: dashed 1px #BACCBE;
+}
+div.stringFeeContent:hover{
+	border: dashed 1px #789C81;
+}
+
+span.stringFeeBELink{
+	float:right;
+}

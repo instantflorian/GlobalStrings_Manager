@@ -1,0 +1,22 @@
+<h2>Hilfe zu GlobalStrings Manager</h2>
+
+<p>Admin-Tool in Kombination mit einem Droplet, um Zeichenketten (auf Englisch "Strings") auf der Website einzufügen.</p> 
+<p>Es können einzelne Textzeilen (für kurze Strings), Langtexte (für längeren Text oder z.B. Javascript-Code) oder WYSIWYG-Texte hinterlegt werden.</p>
+<br>
+<p>Im Admin-Tool wird eine Zeichenkette/String erstellt, danach kann der anzuzeigende Text hinterlegt werden. 
+<br>Wenn die Website-Installation über mehrere Sprachen verfügt, wird jede sich im Einsatz befindende Sprache mit Texten befüllt werden können.<br>
+Die so erstellt Zeichenkette kann dann über ein Droplet, der direkt im Admin-Tool kopiert werden kann, durch den Dropletaufruf im Template oder der/den gewünschten Seite/n angezeigt, z.B. <span class="tt">[[string?name=helloworld]]</span>.</p>
+<p><b>Der Vorteil:</b> einmal angelegt, kann die Zeichenkette zentral verwaltet und bearbeitet werden, sodass nicht mehr das Template oder jede einzelne Seite bearbeitet werden muss.</p>
+<p>Es können beliebig viele Zeichenketten/Strings angelegt werden.</p>
+<hr>
+<h2>Erkennen von GlobalStrings im Frontend</h2>
+<p>Wenn über die <i>Optionen</i> <b>FE-Edit Link</b> eingeschaltet ist kann jeder (d.h. jeder der Zugang zu diesem Admin-Tool hat) sehen, welche Bereiche auf der Internetseite über dieses Admin-Tool eingespeist wurden. Es erscheint auch ein Link neben diesem Bereich, über den man zum Tool gelangt, wo man die Zeichenkette dann editieren kann.</p><br>
+<p><b>Zusätzlich gibt es die Möglichkeit, ein weiteres Droplet ins Template einzufügen:</b> <br>
+<span class="tt">[[string?fee_switch=1]]</span></p>
+<p>Befindet sich dieses Droplet im Template, wird an seiner Stelle ein Schalter-Link erscheinen, mit dem man Frontend-Edit ein-/auschalten kann.</p>
+<p>Darüberhinaus speist dieses Droplet ein CSS Datei ein, mit der man den Bereich und den Link gestalten kann, wo die Strings auf der Seite dargestellt werden, wenn Frontend Edit eingeschaltet ist.</p>
+<p>Diese Datei finden Sie im Ordner des Modules unter <span class="tt">[root]/modules/global_strings/global_strings_fee.css</span><br>
+<b>Diese CSS Datei können Sie auch in den Ordner ihrers templates <u>kopieren</u> und anschließend editieren, sodass es mit der Erscheinung ihrers Templates übereinstimmt.</b> Sie kann direkt in Ihren Templateordner oder den Unterordner /css/ kopiert werden. Das Admin-Tool findet die Datei und verwendet diese anstatt der, die sich im Modulordner befindet (löschen Sie die css Datei im Modulordner dennoch nicht).</p>
+<hr>
+<p>Wenn Du weißt wie dieses Modul am besten erklärt werden könnte, halt Dich nicht zurück. Hilf mit ein besseres Modul zu gestalten!</p>
+<p></p><br>
