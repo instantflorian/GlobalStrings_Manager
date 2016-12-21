@@ -1,5 +1,5 @@
 <?php 
-// useful ommon functions
+// useful common functions
 
 /**
  * Get Languages that are active on the installation
@@ -119,6 +119,7 @@ if(!function_exists('wb_dump')){
 	/**
 	 * This is a simple function to show var_dump or print_r output
 	 * in a predefined wrapper
+         * INFO: this function will be available in FE/BE everywhere in WBCE 1.2.x
 	 **/
 	function wb_dump($mVar = '', $sHeading='', $bShowWithVarDump = false){
 		echo '<pre style="background: lightyellow; padding:6px; margin:4px; border: 1px dotted red;">';
@@ -146,38 +147,13 @@ if(!function_exists('wb_dump')){
 	}
 }
 
-if (!function_exists('get_language_array')) 
-{	
-	/**
-	 * This experimental function will return a multilingual array
-	 *
-	 * @author    Christian M. Stefan (Stefek)
-	 * @license   http://www.gnu.org/licenses/gpl-2.0.html
-	 *
-	 * @return    array
-	 *
-	 
-	 // (EXPERIMENTAL) THIS FUNCTION AIN'T USED AS OF THIS VERSION AND MAY NEVER BE.
-	function get_language_array() 
-	{
-		$aLanguage = array();
-		$sLoc = dirname(__FILE__) . '/languages';
-		if(is_readable($sLoc . '/EN.ini'))
-			$aLanguage = parse_ini_file($sLoc . '/EN.ini');
-		if(is_readable($sLoc . '/EN_custom.ini'))
-			$aLanguage = array_merge($aLanguage, parse_ini_file($sLoc . '/EN_custom.ini'));
-		if(LANGUAGE != 'EN'){
-			if(is_readable($sLoc . '/'.LANGUAGE.'.ini'))
-				$aLanguage = array_merge($aLanguage, parse_ini_file($sLoc . '/'.LANGUAGE.'.ini'));
-			if(is_readable($sLoc . '/'.LANGUAGE.'_custom.ini'))
-				$aLanguage = array_merge($aLanguage, parse_ini_file($sLoc . '/'.LANGUAGE.'_custom.ini'));
-		}	
-		return $aLanguage;
-	}
-	*/
+
+if (!function_exists('db_table_exists')) {
+    function db_table_exists($sTable){
+        $rQuery = $GLOBALS['database']->query('SHOW TABLES LIKE "' . $sTable . '"');
+        return ($rQuery->numRows() != 0);
+    }
 }
-
-
 
 if (!function_exists('insertRow')) {
     /**
