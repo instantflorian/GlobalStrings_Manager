@@ -66,11 +66,11 @@ $sNameMatch = '/^[a-zA-Z][a-zA-Z_\-0-9]{2,}$/i';
 						$aMsg = addNewStringEntity($sFieldName, $_POST['field_type']);
 						$iID = $database->get_one("SELECT MAX(id) FROM `".STRINGS_FIELDS_TBL."`");
 						$params = array(
-								'pos' => $pos, //same
-								'hilite' => $iID,
-								'msg' => $aMsg[key($aMsg)],
-								'msgtype' => key($aMsg)
-								);
+                                                        'pos' => $pos, //same
+                                                        'hilite' => $iID,
+                                                        'msg' => $aMsg[key($aMsg)],
+                                                        'msgtype' => key($aMsg)
+                                                );
 						header('Location:'.$toolUrl.'&'.http_build_query($params).'#fields_'.$iID);
 					}
 				}

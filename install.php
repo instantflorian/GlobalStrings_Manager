@@ -20,7 +20,7 @@ include __DIR__.'/functions/droplets.functions.php';
 $sDropletFile = __DIR__.'/droplets/string.php';
 if(is_readable($sDropletFile)){
 	if(importDropletFromFile($sDropletFile)){
-		echo 'Droplet <b>string</b> installed successfully.';
+		echo 'Droplet <b>string</b> installed successfully.<br>';
 	}
 }
 			
@@ -34,9 +34,9 @@ if(db_table_exists(STRINGS_CFG_TBL) == true) {
 $aQueries = array();
 // _cfg table
 $aQueries[] = "CREATE TABLE IF NOT EXISTS `".STRINGS_CFG_TBL."` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `value` text NOT NULL,
+  `id`     int(11) NOT NULL AUTO_INCREMENT,
+  `name`   varchar(255) NOT NULL DEFAULT '',
+  `value`  text NOT NULL,
   PRIMARY KEY (id)
 )  ENGINE=MyIsam AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;";
 
@@ -66,8 +66,6 @@ $aQueries[] = "CREATE TABLE IF NOT EXISTS `".STRINGS_CONTENTS_TBL."` (
   `content`   text NOT NULL DEFAULT '',
   PRIMARY KEY (unique_id)
 ) ENGINE=MyIsam AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;";
-
-// add droplet to mod_droplets table
 
 echo '<br>Installing: ';
 foreach($aQueries as $sSql){

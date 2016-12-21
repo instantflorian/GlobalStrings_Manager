@@ -74,13 +74,13 @@ function updateStringContents($aContents, $iID){
 	global $database, $admin;
 	$aMsg = array();
 	$aData = array(
-			'edit_when' => time(),
-			'edit_by' => $admin->get_user_id(),
-			'restricted' => $aContents['restricted']
+                'edit_when' => time(),
+                'edit_by' => $admin->get_user_id(),
+                'restricted' => $aContents['restricted']
 	);
 	updateRecordFromArray($aData, STRINGS_FIELDS_TBL, 'id', intval($iID));
 	$sSql = "UPDATE `".STRINGS_CONTENTS_TBL."` 
-			 SET `content` = '%s' WHERE `unique_id` = '%d'";
+			SET `content` = '%s' WHERE `unique_id` = '%d'";
 	foreach($aContents as $unique_id=>$content){
 		$sMediaUrl = WB_URL.MEDIA_DIRECTORY;
 		if(ini_get('magic_quotes_gpc')==true){
@@ -133,7 +133,7 @@ function addNewStringEntity($field_name, $field_type){
 		}
 	} else { 
 		// hier noch distinction, ob der einfach in verwendung ist,
-		// ob er gelöscht ist oder reserviert vom system (wenn z.B. use_restrictions ON ist)
+		// ob er gelï¿½scht ist oder reserviert vom system (wenn z.B. use_restrictions ON ist)
 		$aMsg['error'] = '{TOOL_TEXT:FIELD_NAME_IN_USE}';
 	}
 	return $aMsg;

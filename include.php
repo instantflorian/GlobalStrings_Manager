@@ -14,11 +14,9 @@
  *	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **/
 $sDirname = basename(dirname(__FILE__));
-if(!defined('STRINGS_CFG_TBL'))           define('STRINGS_CFG_TBL', TABLE_PREFIX ."mod_".$sDirname."_cfg");
-if(!defined('STRINGS_FIELDS_TBL'))     define('STRINGS_FIELDS_TBL', TABLE_PREFIX ."mod_".$sDirname."_fields");
-if(!defined('STRINGS_CONTENTS_TBL')) define('STRINGS_CONTENTS_TBL', TABLE_PREFIX ."mod_".$sDirname."_contents");
-	
-
+defined('STRINGS_CFG_TBL')       or define('STRINGS_CFG_TBL',      TABLE_PREFIX ."mod_".$sDirname."_cfg");
+defined('STRINGS_FIELDS_TBL')    or define('STRINGS_FIELDS_TBL',   TABLE_PREFIX ."mod_".$sDirname."_fields");
+defined('STRINGS_CONTENTS_TBL')  or define('STRINGS_CONTENTS_TBL', TABLE_PREFIX ."mod_".$sDirname."_contents");
 
 
 /**

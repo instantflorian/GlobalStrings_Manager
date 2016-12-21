@@ -12,7 +12,7 @@
  */
 
 //no direct file access
-if(count(get_included_files())==1) die(header("Location: ../index.php",TRUE,301));
+if(count(get_included_files())==1) die(header("Location: ../index.php", TRUE, 301));
 
 define('TABLE', TABLE_PREFIX . 'mod_global_strings');
 // remove $sTable from WB database
@@ -30,7 +30,3 @@ foreach ($aTables as $row){
 
 // delete droplet 
 $database->query("DELETE FROM `".TABLE_PREFIX."mod_droplets` WHERE `name` = 'string'");
-
-if($database->get_one("SELECT `id` FROM `".TABLE_PREFIX."mod_droplets` WHERE `name` = 'Dein_Droplet_Name'")){
-	// ja, es existiert
-}

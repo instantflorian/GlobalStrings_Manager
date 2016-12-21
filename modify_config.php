@@ -34,9 +34,9 @@ if(isset($_POST['save_config'])){
 		}
 		if(!$database->get_error) {	
 			$params = array(
-					'pos' => $pos, //same
-					'msg' => 'TOOL_TEXT:CONFIG_UPDATE_SUCCESS',
-					'msgtype' => 'success'
+                                'pos' => $pos, //same
+                                'msg' => 'TOOL_TEXT:CONFIG_UPDATE_SUCCESS',
+                                'msgtype' => 'success'
 			);
 			header('Location:'.$toolUrl.'&'.http_build_query($params));
 		}else{ 

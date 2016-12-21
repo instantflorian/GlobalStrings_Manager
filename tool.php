@@ -12,7 +12,7 @@
  */
 
 //no direct file access
-if(count(get_included_files())==1) die(header("Location: ../index.php",TRUE,301));
+if(count(get_included_files())==1) die(header("Location: ../index.php", TRUE, 301));
 // user needs permission for admintools OR pages
 if(!$admin->get_permission('admintools')) {
 	exit("insuficient privileges");
@@ -40,9 +40,9 @@ if(isset($_GET['func']) && ($_GET['func'] == "install_droplet")){
 		if(importDropletFromFile($sDropletFile)){
 			$sMsg = '&msg=&msgtype=success';
 			$params = array(
-					'pos' => $pos, //same
-					'msg' => 'TOOL_TEXT:DROPLET_REINSTALLED',
-					'msgtype' => 'success'
+                                'pos' => $pos, //same
+                                'msg' => 'TOOL_TEXT:DROPLET_REINSTALLED',
+                                'msgtype' => 'success'
 			);
 			header('Location:'.$toolUrl.'&'.http_build_query($params));
 		}

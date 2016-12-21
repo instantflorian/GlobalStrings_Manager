@@ -13,9 +13,9 @@ if(count(get_included_files())==1) die(header("Location: ../index.php", TRUE, 30
 $aPossibleStringTypes = array('textarea', 'shorttext', 'wysiwyg');
 
 $sDirname = basename(dirname(__FILE__));
-if(!defined('STRINGS_CFG_TBL'))           define('STRINGS_CFG_TBL', TABLE_PREFIX ."mod_".$sDirname."_cfg");
-if(!defined('STRINGS_FIELDS_TBL'))     define('STRINGS_FIELDS_TBL', TABLE_PREFIX ."mod_".$sDirname."_fields");
-if(!defined('STRINGS_CONTENTS_TBL')) define('STRINGS_CONTENTS_TBL', TABLE_PREFIX ."mod_".$sDirname."_contents");
+defined('STRINGS_CFG_TBL')       or define('STRINGS_CFG_TBL',      TABLE_PREFIX ."mod_".$sDirname."_cfg");
+defined('STRINGS_FIELDS_TBL')    or define('STRINGS_FIELDS_TBL',   TABLE_PREFIX ."mod_".$sDirname."_fields");
+defined('STRINGS_CONTENTS_TBL')  or define('STRINGS_CONTENTS_TBL', TABLE_PREFIX ."mod_".$sDirname."_contents");
 
 if(!isset($toolUrl))	  $toolUrl     = ADMIN_URL.'/admintools/tool.php?tool='.$sDirname;
 if(!isset($modulePath))   $modulePath  = WB_PATH.'/modules/'.$sDirname;

@@ -26,7 +26,7 @@ if (!function_exists('getActiveLanguages')) {
 			// Loop through addons
 			while($rec = $oAddons->fetchRow(MYSQL_ASSOC)){
 				if($rec['active'] == true){
-						$aLangs[$rec['directory']] = $rec['name'];
+                                        $aLangs[$rec['directory']] = $rec['name'];
 				}
 			}			
 		}
@@ -101,17 +101,17 @@ if (!function_exists('updateRecordFromArray')) {
             global $database;
             $aCollect = array();
             foreach ($aInsertArray as $k => $v) {
-                $aCollect[] = "`".$k."` = '".$v."', ";
+                    $aCollect[] = "`".$k."` = '".$v."', ";
             }
             $sValues = implode("", $aCollect);
             $sValues = substr($sValues, 0, -2);
             $sQuery  = "UPDATE `%s` SET %s WHERE `%s` = '%d'";
             // execute the UPDATE query
-			if($database->query(sprintf($sQuery, $sTableName, $sValues, $sWhereField, $iWhereId))){				
-				return true; 
-			}else{ 
-				return false; //$database->get_error();
-			}
+            if($database->query(sprintf($sQuery, $sTableName, $sValues, $sWhereField, $iWhereId))){				
+                    return true; 
+            }else{ 
+                    return false; //$database->get_error();
+            }
         }
     }
 }
@@ -156,30 +156,30 @@ if (!function_exists('db_table_exists')) {
 }
 
 if (!function_exists('insertRow')) {
-    /**
-     *	updateRecordFromArray
-     */
-    function insertRow($table, array $data){
-		global $database;
-        $retVal = false;
-        $parameters = array();
-        foreach ($data as $column => $value) {
-            $parameters[] = "`".trim($column)."` = '".$value."', ";             
+        /**
+         *	updateRecordFromArray
+         */
+        function insertRow($table, array $data){
+                global $database;
+                $retVal = false;
+                $parameters = array();
+                foreach ($data as $column => $value) {
+                    $parameters[] = "`".trim($column)."` = '".$value."', ";             
+                }
+                $sValues = implode("", $parameters);
+                $sValues = substr($sValues, 0, -2);
+                        #echo '<br>(1)';
+                $strQuery =  sprintf("INSERT INTO `%s` SET %s", $table, $sValues);
+                        #echo '<br>'.$strQuery;
+                if($database->query($strQuery)){          
+                        #echo '<br>(2)';          
+                    $retVal = true; 
+                }else{ 
+                        #echo '<br>(3)';
+                        $retVal = $database->get_error();
+                }
+                return $retVal;
         }
-        $sValues = implode("", $parameters);
-        $sValues = substr($sValues, 0, -2);
-				echo '<br>(1)';
-        $strQuery =  sprintf("INSERT INTO `%s` SET %s", $table, $sValues);
-				echo '<br>'.$strQuery;
-        if($database->query($strQuery)){          
-				echo '<br>(2)';          
-            $retVal = true; 
-        }else{ 
-				echo '<br>(3)';
-            $retVal = $database->get_error();
-        }
-        return $retVal;
-    }
 }
 
 if (!function_exists('updateRow')) {
