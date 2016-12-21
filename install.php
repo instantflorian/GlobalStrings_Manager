@@ -27,7 +27,7 @@ if(is_readable($sDropletFile)){
 // get functions file
 require __DIR__.'/functions.php'; 	
 // check if we should install any DB TABLE's or if this is an upgrade
-if($database->field_exists(STRINGS_CFG_TBL, 'id') == true) {
+if(db_table_exists(STRINGS_CFG_TBL) == true) {
 	exit;
 }
 
