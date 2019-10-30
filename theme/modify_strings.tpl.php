@@ -21,7 +21,17 @@ include __DIR__.'/head.tpl.php';
 			</select><input type="submit" name="change_order_by" value="go!">
 		</form>
 		-->
-		<table class="stringsList">		
+		<table id="myTable" class="cell-border compact stripe">		
+		<thead>
+			<tr>
+				
+				<th><?=$TOOL_TEXT['NAME'] ?></th>				
+				<th><?=$TOOL_TEXT['TYPE'] ?></th>	
+				<th><?=$TOOL_TEXT['DATE_CREATED'] ?></th>
+				<th><?=$TOOL_TEXT['DATE_MODIFIED'] ?></th>
+			</tr>
+		</thead>
+		<tbody>
 			<?php
 				foreach($aAllFields as $id=>$field):			
 				$sRestriction = ($field['restricted'] == 0 ? 'un' : '').'restricted';
@@ -34,27 +44,46 @@ include __DIR__.'/head.tpl.php';
 				<?php else: ?>
 					<img src="<?=$icons?>/<?=$sRestriction?>.png" alt="" title="GlobalString">
 				<?php endif; ?>
-				</td>
-				<td>
+				
 					<span  title="<?=$TEXT['MODIFY']?>" style="<?=($sTrashed == 'trashed') ? "text-decoration: line-through;" : '' ?>">
-						<a href="#fields_<?=$id?>"><?=$field['name']?></a>
+						<a href="#a<?=$id?>"><?=$field['name']?></a>
 					</span>
-				</td>
-				<td>
 					<?php if($sTrashed == 'trashed'): ?>
 						<img src="<?=$icons?>/trash_16.png" alt="" title="<?=$TEXT['DELETED'] ?>">
 					<?php endif; ?>
 				</td>
-				<td style="text-align:right;">
-					<span style="font-family:monotype,courier;font-weight:600">[<?=$field['type']?>]</span>
+				<td>
+					<?=$field['type']?>
+				</td>
+				<td>					
+					<?php echo date (DATE_FORMAT.' '.TIME_FORMAT,$field['add_when']+TIMEZONE);?>
+				</td>
+				<td>
+					<?php if ($field['edit_when']!=0) {
+					echo date (DATE_FORMAT.' '.TIME_FORMAT,$field['edit_when']+TIMEZONE);
+					}
+					?>
 				</td>
 			</tr>
 			<?php endforeach; ?> 
+			</tbody>
 		</table>
+		<link rel="stylesheet" type="text/css" href="<?=WB_URL ?>/modules/global_strings/js/datatables.min.css" />
+		<script type="text/javascript" src="<?=WB_URL ?>/modules/global_strings/js/datatables.min.js"></script>
+
+		<script>
+		$(document).ready( function () {
+			$('#myTable').DataTable({
+				"pageLength": 5
+			});
+		} );
+		</script>
 		<?php else: ?>
 		<div class="be_infobox">Es sind noch keine Strings angelegt worden.</div>
 		<?php endif; ?>
 </div>
+
+
 
 <div class="be_settings be_half">
 	<form name="add_field" action="<?=$toolUrl?>&pos=modify_strings" method="post" autocomplete="off">
@@ -92,6 +121,7 @@ foreach($aAllFields as $id=>$field):
 	$sRestriction = ($field['restricted'] == 0 ? 'un' : '').'restricted';
 	$sTrashed = (isTrashedEntity($id) ? '' : 'not_').'trashed';
 ?>
+<a name="a<?=$id?>" class="anchor"></a>
 <form id="fields_<?=$id?>" name="update_field" action="<?=$toolUrl?>&pos=modify_strings" method="post" autocomplete="off">
 	<?=$admin->getFTAN(); ?>
 	<input type="hidden" name="field_id" value="<?=$id ?>">
@@ -120,7 +150,7 @@ foreach($aAllFields as $id=>$field):
 		<div class="singleRow<?=(isTrashedEntity($id) ? ' trashed' : '')?>">
 			<div>
 			<span title="unique=<?=$value['unique_id']?>">
-				<img src="<?=THEME_URL ?>/images/flags/<?=strtolower($lang) ?>.png"> <b><?=$lang?></b>
+				<img src="<?=WB_URL ?>/languages/<?=strtoupper($lang) ?>.png"> <b><?=$lang?></b>
 			</span>
 			<span style="float:right; font-size:11px;"></span>
 				<!-- <div>
@@ -140,7 +170,7 @@ foreach($aAllFields as $id=>$field):
 			</div>
 		</div>
 		<?php else: ?>
-		&nbsp;&nbsp;<img src="<?=THEME_URL ?>/images/flags/<?=strtolower($lang) ?>.png"> <b><?=$lang?></b> UniqueID: <?=$value['unique_id']?>
+		&nbsp;&nbsp;<img src="<?=WB_URL ?>/languages/<?=strtoupper($lang) ?>.png"> <b><?=$lang?></b> UniqueID: <?=$value['unique_id']?>
 		<?php endif; 
 		endforeach;  
 	?>
