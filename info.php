@@ -15,7 +15,7 @@
 $module_directory   = 'global_strings';
 $module_name        = 'GlobalStrings Manager';
 $module_function    = 'tool';
-$module_version     = '0.8.1';
+$module_version     = '0.8.2';
 $module_status      = 'Beta';
 $module_platform    = '1.0.0';
 $module_author      = 'Christian M. Stefan <stefek@designthings.de>';
