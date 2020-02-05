@@ -44,7 +44,10 @@ $TOOL_TEXT['ALL_LANG_INFO']           = 'Darstellung aller Sprachen, die auf die
 $TOOL_TEXT['FE_EDIT_INFO']            = 'Wenn aktiviert, wird ein Link neben dem String angezeigt, um ins Backend zu gelangen, wo man ihn editieren kann.';
 $TOOL_TEXT['TRASH_INFO']              = 'Ohne aktiviertem Papierkorb (Trash) werden die Strings beim Löschen unwiederruflich entfernt!';
 $TOOL_TEXT['COPY_CLIPBOARD']          = 'In die Zwischenablage kopieren'; // 'Copy to clipboard';
-
+$TOOL_TEXT['NAME']					  = 'Bezeichnung';
+$TOOL_TEXT['TYPE']					  = 'Art';
+$TOOL_TEXT['DATE_CREATED']			  = 'Erstellt am';
+$TOOL_TEXT['DATE_MODIFIED']			  = 'Geändert am';
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                        Order by
