@@ -4,7 +4,7 @@
  *
  * This file will CREATE TABLE in the DB while installation
  * The TABLE will provide configuration settings needed for the Admin-Tool
- * 
+ *
  * @platform    WBCE CMS
  * @package     GlobalStrings
  * @author      Christian M. Stefan (Stefek)
@@ -14,7 +14,7 @@
 
 //no direct file access
 if(count(get_included_files())==1) die(header("Location: ../index.php", TRUE, 301));
-	
+
 // install Droplet
 include __DIR__.'/functions/droplets.functions.php';
 $sDropletFile = __DIR__.'/droplets/string.php';
@@ -23,9 +23,9 @@ if(is_readable($sDropletFile)){
 		echo 'Droplet <b>string</b> installed successfully.<br>';
 	}
 }
-			
+
 // get functions file
-require __DIR__.'/functions.php'; 	
+require __DIR__.'/functions.php';
 // check if we should install any DB TABLE's or if this is an upgrade
 if(db_table_exists(STRINGS_CFG_TBL) == true) {
 	exit;
@@ -46,7 +46,7 @@ $aQueries[] = "CREATE TABLE IF NOT EXISTS `".STRINGS_FIELDS_TBL."` (
   `id`         int(11) NOT NULL AUTO_INCREMENT,
   `name`       varchar(255) NOT NULL DEFAULT '',
   `type`       varchar(32) NOT NULL DEFAULT '',
-  `tpl`        text NOT NULL DEFAULT '',
+  `tpl`        text NOT NULL,
   `add_when`   int(12) NOT NULL DEFAULT '0',
   `add_by`     int(11) NOT NULL DEFAULT '0',
   `edit_when`  int(12) NOT NULL DEFAULT '0',
@@ -63,14 +63,14 @@ $aQueries[] = "CREATE TABLE IF NOT EXISTS `".STRINGS_CONTENTS_TBL."` (
   `unique_id` int(11) NOT NULL AUTO_INCREMENT,
   `id`        int(11) NOT NULL DEFAULT '0',
   `language`  varchar(3) NOT NULL DEFAULT '',
-  `content`   text NOT NULL DEFAULT '',
+  `content`   text NOT NULL,
   PRIMARY KEY (unique_id)
 ) ENGINE=MyIsam AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;";
 
 echo '<br>Installing: ';
 foreach($aQueries as $sSql){
 	$database->query($sSql);
-	echo '. . . '; 
+	echo '. . . ';
 }
 // add config settings
 $aConfig = array(

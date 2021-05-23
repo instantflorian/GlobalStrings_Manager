@@ -1,9 +1,9 @@
-<?php 
+<?php
 // useful common functions
 
 /**
  * Get Languages that are active on the installation
- * will return an associative array 
+ * will return an associative array
  *  Array
  *  (
  *		[DE] => Germany
@@ -14,21 +14,21 @@ if (!function_exists('getActiveLanguages')) {
 	function getActiveLanguages(){
 		global $database;
 		$sQueryAddons = (
-			"SELECT DISTINCT a.`directory`, a.`name`, 							
-			IF( p.language IS NOT NULL , 1, 0 ) AS active			
-			FROM ".TABLE_PREFIX."addons a 
-				LEFT JOIN ".TABLE_PREFIX."pages p 
-				ON a.directory = p.language 
+			"SELECT DISTINCT a.`directory`, a.`name`,
+			IF( p.language IS NOT NULL , 1, 0 ) AS active
+			FROM ".TABLE_PREFIX."addons a
+				LEFT JOIN ".TABLE_PREFIX."pages p
+				ON a.directory = p.language
 			WHERE type = 'language'"
 		);
 		$aLangs = array();
 		if($oAddons = $database->query($sQueryAddons)){
 			// Loop through addons
-			while($rec = $oAddons->fetchRow(MYSQL_ASSOC)){
+			while($rec = $oAddons->fetchRow(MYSQLI_ASSOC)){
 				if($rec['active'] == true){
                                         $aLangs[$rec['directory']] = $rec['name'];
 				}
-			}			
+			}
 		}
 		return $aLangs;
 	}
@@ -41,16 +41,16 @@ if (!function_exists('L_')) {
  *
  * Correct format would be:
  *     L_('ARRAY:KEY'); or
- *     L_('{ARRAY:KEY}'); 
+ *     L_('{ARRAY:KEY}');
  * example:
  *     L_('TEXT:ACTIVE');
  *     L_('{TEXT:ACTIVE}');
  *
- *	@author Christian M. Stefan <stefek@designthings.de>	
- *	@param  string	
- *	@param  bool	
+ *	@author Christian M. Stefan <stefek@designthings.de>
+ *	@param  string
+ *	@param  bool
  *	@return string Translated String
- */	
+ */
 	function L_($str, $bShowMissing = false){
 		$sRetVal = '';
 		if(strpos($str, ':') !== false){
@@ -58,12 +58,12 @@ if (!function_exists('L_')) {
 			if(strpos($str, '{') !== false){
 				preg_match_all('/{(.*?)}/', $str, $out);
 				$tmp = explode(':',$out[1][0]);
-			}else{ 
+			}else{
 				$tmp = explode(':',$str);
 			}
-			$arr = $tmp[0];	
-			$key = $tmp[1];	
-			if(is_array($GLOBALS[$arr]) && array_key_exists($key, $GLOBALS[$arr])){		
+			$arr = $tmp[0];
+			$key = $tmp[1];
+			if(is_array($GLOBALS[$arr]) && array_key_exists($key, $GLOBALS[$arr])){
 				$sRetVal = $GLOBALS[$arr][$key];
 			}else{
 				$bShowMissing = true;
@@ -71,7 +71,7 @@ if (!function_exists('L_')) {
 					$sRetVal = "<span style='color:purple'>";
 					$sRetVal .= (is_array($GLOBALS[$arr]) == false) ? 'Array '.$arr.' does not exist.<br>' : '';
 					$sRetVal .= "<b>Missing Translation:</b> <input style=\"width:450px\" type=\"text\" value=\"$".$arr."['".$key."']\"></span>";
-				}else{ 
+				}else{
 					$key = str_replace('_', ' ', $key).'.';
 					$sRetVal = $key;
 				}
@@ -82,13 +82,13 @@ if (!function_exists('L_')) {
 		return $sRetVal;
 	}
 }
-	
+
 if (!function_exists('updateRecordFromArray')) {
     /**
      *	updateRecordFromArray
      *	-----------------------
      *	@author 	Christian M. Stefan <stefek@designthings.de>
-     *	
+     *
      *	@param array	$aInsertArray - prepared Array of field-names and values to be updated in table
      *	@param string	$sTableName   - table name to be used for the query
      *	@param string	$sWhereField  - field name for WHERE clause
@@ -107,9 +107,9 @@ if (!function_exists('updateRecordFromArray')) {
             $sValues = substr($sValues, 0, -2);
             $sQuery  = "UPDATE `%s` SET %s WHERE `%s` = '%d'";
             // execute the UPDATE query
-            if($database->query(sprintf($sQuery, $sTableName, $sValues, $sWhereField, $iWhereId))){				
-                    return true; 
-            }else{ 
+            if($database->query(sprintf($sQuery, $sTableName, $sValues, $sWhereField, $iWhereId))){
+                    return true;
+            }else{
                     return false; //$database->get_error();
             }
         }
@@ -131,7 +131,7 @@ if(!function_exists('wb_dump')){
 					var_dump($mVar);
 				}elseif(!is_array($mVar) && '' != $mVar){
 					var_dump($mVar);
-				}else{		
+				}else{
 					echo '<i>~ (empty) ~</i>';
 				}
 			}else{
@@ -139,11 +139,11 @@ if(!function_exists('wb_dump')){
 					print_r($mVar);
 				}elseif(!is_array($mVar) && '' != $mVar){
 					echo($mVar);
-				}else{		
+				}else{
 					echo '<i>~ (empty) ~</i>';
 				}
 			}
-		echo '</pre>';	
+		echo '</pre>';
 	}
 }
 
@@ -164,17 +164,17 @@ if (!function_exists('insertRow')) {
                 $retVal = false;
                 $parameters = array();
                 foreach ($data as $column => $value) {
-                    $parameters[] = "`".trim($column)."` = '".$value."', ";             
+                    $parameters[] = "`".trim($column)."` = '".$value."', ";
                 }
                 $sValues = implode("", $parameters);
                 $sValues = substr($sValues, 0, -2);
                         #echo '<br>(1)';
                 $strQuery =  sprintf("INSERT INTO `%s` SET %s", $table, $sValues);
                         #echo '<br>'.$strQuery;
-                if($database->query($strQuery)){          
-                        #echo '<br>(2)';          
-                    $retVal = true; 
-                }else{ 
+                if($database->query($strQuery)){
+                        #echo '<br>(2)';
+                    $retVal = true;
+                }else{
                         #echo '<br>(3)';
                         $retVal = $database->get_error();
                 }
@@ -189,19 +189,19 @@ if (!function_exists('updateRow')) {
         if (isset($data[$primaryKey])) {
             $parameters = array();
             foreach ($data as $column => $value) {
-                $parameters[] = "`".trim($column)."` = '".$value."', ";             
+                $parameters[] = "`".trim($column)."` = '".$value."', ";
             }
             $sValues = implode("", $parameters);
             $sValues = substr($sValues, 0, -2);
             $sqlRowCheck = "SELECT COUNT(*) FROM `".$table."` WHERE `".$primaryKey."` = '".$data[$primaryKey]."'";
             if ($database->get_one($sqlRowCheck)) {
                 $strQuery = sprintf("UPDATE `%s` SET %s WHERE `%s` = '%s'", $table, $sValues, $primaryKey, $data[$primaryKey]);
-            } else { 
+            } else {
                 $strQuery = sprintf("INSERT INTO `%s` SET %s", $table, $sValues);
             }
-            if($database->query($strQuery)){                    
-                $retVal = true; 
-            }else{ 
+            if($database->query($strQuery)){
+                $retVal = true;
+            }else{
                 $retVal = $database->get_error();
             }
         }
@@ -220,12 +220,12 @@ if(!function_exists('exportDropletToXML')){
 **/
 	function exportDropletToXML($sDropletName){
 		global $database;
-		$sSql = "SELECT `name`, `description`, `comments`, `code` 
-					FROM `".TABLE_PREFIX."mod_droplets` 
+		$sSql = "SELECT `name`, `description`, `comments`, `code`
+					FROM `".TABLE_PREFIX."mod_droplets`
 					WHERE `name` = '".$sDropletName."'
 					LIMIT 1";
-		
-		$result = $database->query($sSql)->fetchRow(MYSQL_ASSOC);
+
+		$result = $database->query($sSql)->fetchRow(MYSQLI_ASSOC);
 		$sRetVal = "<pre class='code'><textarea style='width:80%;height:500px;'><?xml version='1.0' encoding='utf-8'?>".PHP_EOL;
 		$sRetVal .= "<droplet>".PHP_EOL;
 		foreach($result as $key => $value) {
