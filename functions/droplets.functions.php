@@ -1,8 +1,8 @@
 <?php
 /**
  * Rework of import droplet functions from the droplets module
- * [n] the php internal ZipArchive Class is now being used 
- * [n] splited function if ZIP import and single php file import 
+ * [n] the php internal ZipArchive Class is now being used
+ * [n] splited function if ZIP import and single php file import
  * [+] single php droplet files may be installed now using e.g.
  *       importDropletFromFile(WB_PATH.'/modules/myModules/myDroplet.php);
  * [+] you can check for existing droplets using
@@ -21,17 +21,17 @@ if (!function_exists('importDropletFromZip')) {
                 $errors  = array();
                 $count   = 0;
                 $aReturn = array();
-                
+
                 $sTempDir = $sTempDir != '' ? $sTempDir : WB_PATH . '/temp/droplets/';
                 if (!file_exists($sTempDir))
                         mkdir($sTempDir, 0777, true);
-                
+
                 $oZip = new ZipArchive;
                 if ($oZip->open($sZipPath) === TRUE) {
                         $oZip->extractTo($sTempDir);
                         $oZip->close();
                 }
-                
+
                 // now, open the temp directory
                 if (false !== ($dh = opendir($sTempDir))) {
                         while (false !== ($sFile = readdir($dh))) {
@@ -83,7 +83,7 @@ if (!function_exists('importDropletFromFile')) {
                         // Name of the Droplet = Filename
                         $name = $name_match[1];
                         // Slurp file contents
-                        
+
                         $aLines = file($sDirPath . '/' . $sFilename);
                         if (strpos($aLines[0], '<?php') !== false) {
                                 array_shift($aLines);
@@ -115,6 +115,7 @@ if (!function_exists('importDropletFromFile')) {
                         $stmt  = 'INSERT';
                         $id    = NULL;
                         $found = $database->get_one("SELECT * FROM `" . TABLE_PREFIX . "mod_droplets` WHERE name='$name'");
+                        /*
                         if ($found && $found > 0) {
                                 $stmt = 'REPLACE';
                                 $id   = $found;
@@ -123,9 +124,29 @@ if (!function_exists('importDropletFromFile')) {
                         $result              = $database->query("$stmt INTO `" . TABLE_PREFIX . "mod_droplets` VALUES(
 				'$id', '$name', '$code', '$description', '" . time() . "', '" . $admin->get_user_id() . "', 1, 0, 0, 0, '$usage'
 			)");
+			*/
+						if ($found && $found > 0) :
+							// case replace
+							$id   = $found;
+							$result = $database->query("
+									REPLACE INTO `".TABLE_PREFIX."mod_droplets`
+										(`id`, `name`, `code`, `description`, `modified_when`, `modified_by`, `active`, `admin_edit`, `admin_view`, `show_wysiwyg`, `comments`)
+										VALUES
+										('$id', '$name', '$code', '$description', '".time()."', '".$admin->get_user_id()."', 1, 0, 0, 0, '$usage')
+									");
+						else :
+							// case insert
+							$result = $database->query("
+									INSERT INTO `".TABLE_PREFIX."mod_droplets`
+										(`name`, `code`, `description`, `modified_when`, `modified_by`, `active`, `admin_edit`, `admin_view`, `show_wysiwyg`, `comments`)
+										VALUES
+										('$name', '$code', '$description', '".time()."', '".$admin->get_user_id()."', 1, 0, 0, 0, '$usage')
+									");
+						endif;
+
                         $aReturn['imported'] = $name;
                         if ($database->is_error()) {
-                                $aReturn['error'] = $database->get_error();
+                            $aReturn['error'] = $database->get_error();
                         }
                 }
                 return $aReturn;
@@ -136,12 +157,12 @@ if (!function_exists('importDropletFromFile')) {
 if (!function_exists('isDroplet')) {
         /**
          * simple check if Droplet is already installed
-         * isDroplet 
+         * isDroplet
          * @param string Droplet Name
          */
         function isDroplet($sDropletName)
         {
-                $tmp = $GLOBALS['database']->get_one("SELECT `id` FROM `" . TABLE_PREFIX . "mod_droplets` 
+                $tmp = $GLOBALS['database']->get_one("SELECT `id` FROM `" . TABLE_PREFIX . "mod_droplets`
 				WHERE `name` = '" . $sDropletName . "'");
                 return (is_numeric($tmp)) ? intval($tmp) : false;
         }

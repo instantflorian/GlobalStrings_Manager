@@ -45,7 +45,10 @@ $TOOL_TEXT['FE_EDIT_INFO']            = 'When enabled, you will see a link in th
 										 to the backend where you than can edit the Strings content.';
 $TOOL_TEXT['TRASH_INFO']              = 'When trash disabled your Strings will be irrevocably removed from the system!';
 $TOOL_TEXT['COPY_CLIPBOARD']          = 'Copy to clipboard';
-
+$TOOL_TEXT['NAME']					  = 'Name';
+$TOOL_TEXT['TYPE']					  = 'Type';
+$TOOL_TEXT['DATE_CREATED']			  = 'Date created';
+$TOOL_TEXT['DATE_MODIFIED']			  = 'Date modified';
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                        Order by
