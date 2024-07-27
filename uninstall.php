@@ -19,6 +19,7 @@ define('TABLE', TABLE_PREFIX . 'mod_global_strings');
 $aTables = array(
 	TABLE.'_cfg',
 	TABLE.'_strings',
+	TABLE.'_fields',
 	TABLE.'_contents'
 );
 // drop tables

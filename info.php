@@ -15,7 +15,7 @@
 $module_directory   = 'global_strings';
 $module_name        = 'GlobalStrings Manager';
 $module_function    = 'tool';
-$module_version     = '0.8.4';
+$module_version     = '0.8.5';
 $module_status      = 'Beta';
 $module_platform    = '1.0.0';
 $module_author      = 'Christian M. Stefan <stefek@designthings.de>';
@@ -23,5 +23,6 @@ $module_license     = 'GNU General Public License v.2';
 $module_description = 'This Admin-Tool provides a good way to work with reoccurring, global contents.';
 
 // v0.8.4 fixes for MySQL-Strict (Bernd)
+// v0.8.5 fix incomplete uninstall (reported by chriz)
 
 
