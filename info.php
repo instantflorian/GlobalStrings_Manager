@@ -23,6 +23,5 @@ $module_license     = 'GNU General Public License v.2';
 $module_description = 'This Admin-Tool provides a good way to work with reoccurring, global contents.';
 
 // v0.8.4 fixes for MySQL-Strict (Bernd)
-// v0.8.5 fix incomplete uninstall (reported by chriz)
-
+// v0.8.5 fix missing Datables images, change displayed columns (florian, mk70)
 

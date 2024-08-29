@@ -8,27 +8,12 @@ include __DIR__.'/head.tpl.php';
 <div class="be_half">	
 		<h2>Liste der Strings:</h2>
 		<?php if(!empty($aAllFields)): ?>
-		<!--
-		<form name="order_by_form" action="<?php echo $toolUrl?>&pos=modify_strings" method="post">
-			<?php echo $admin->getFTAN(); ?><?php echo $TOOL_TEXT['ORDER_BY']; ?>: 
-			<select name="order_by">
-				<?php 
-				foreach(getOrderByArray() as $opt): ?>
-				<option<?php echo ($opt['sel'] == 1) ? ' selected="selected"' : '' ?> value="<?php echo $opt['name']?>">
-					<?php echo $TOOL_TEXT[$opt['name']]; ?>
-				</option>
-				<?php endforeach; ?>
-			</select><input type="submit" name="change_order_by" value="go!">
-		</form>
-		-->
 		<table id="myTable" class="cell-border compact stripe">		
 		<thead>
 			<tr>
-				
+				<th>ID</th>
 				<th><?php echo $TOOL_TEXT['NAME']; ?></th>				
-				<th><?php echo $TOOL_TEXT['TYPE']; ?></th>	
-				<th><?php echo $TOOL_TEXT['DATE_CREATED']; ?></th>
-				<th><?php echo $TOOL_TEXT['DATE_MODIFIED']; ?></th>
+				<th><?php echo $TOOL_TEXT['TYPE']; ?></th>					
 			</tr>
 		</thead>
 		<tbody>
@@ -38,6 +23,9 @@ include __DIR__.'/head.tpl.php';
 				$sTrashed = (isTrashedEntity($id) ? '' : 'not_').'trashed';
 			?>	
 			<tr>
+				<td>
+				<?php echo $id;?>
+				</td>
 				<td>
 				<?php if(canModifyRestricted()): ?>
 					<img src="<?php echo $icons?>/<?php echo $sRestriction?>.png" alt="[<?php echo $sRestriction?>]" title="<?php echo $TOOL_TEXT[strtoupper($sRestriction).'_INFO']; ?>">
@@ -55,15 +43,7 @@ include __DIR__.'/head.tpl.php';
 				<td>
 					<?php echo $field['type']?>
 				</td>
-				<td>					
-					<?php echo date (DATE_FORMAT.' '.TIME_FORMAT,$field['add_when']+TIMEZONE);?>
-				</td>
-				<td>
-					<?php if ($field['edit_when']!=0) {
-					echo date (DATE_FORMAT.' '.TIME_FORMAT,$field['edit_when']+TIMEZONE);
-					}
-					?>
-				</td>
+				
 			</tr>
 			<?php endforeach; ?> 
 			</tbody>
@@ -74,7 +54,8 @@ include __DIR__.'/head.tpl.php';
 		<script>
 		$(document).ready( function () {
 			$('#myTable').DataTable({
-				"pageLength": 5
+				"pageLength": 5,
+				stateSave: true
 			});
 		} );
 		</script>
